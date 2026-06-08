@@ -1,0 +1,159 @@
+.bio-beach {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #0474BA 0%,
+    #0c3a5e 20%,
+    #0d2137 100%
+  );
+}
+
+/* Sandy shore at top */
+.bio-beach__shore {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(
+    180deg,
+    rgba(194, 168, 128, 0.15) 0%,
+    rgba(194, 168, 128, 0.05) 60%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Foam line */
+.bio-beach__foam {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(0, 255, 204, 0.1) 40%,
+    rgba(255, 255, 255, 0.12) 60%,
+    rgba(0, 255, 204, 0.08) 80%,
+    transparent 100%
+  );
+  z-index: 3;
+  animation: foam-shimmer 6s ease-in-out infinite alternate;
+}
+
+@keyframes foam-shimmer {
+  0% { opacity: 0.6; transform: translate3d(-2%, 0, 0); }
+  100% { opacity: 1; transform: translate3d(2%, 0, 0); }
+}
+
+/* Water area */
+.bio-beach__water {
+  position: absolute;
+  inset: 25px 0 0 0;
+  overflow: hidden;
+}
+
+/* Glowing wave stroke lines */
+.bio-beach__wave-line {
+  position: absolute;
+  width: 120%;
+  left: -10%;
+  height: 60px;
+  will-change: transform;
+}
+
+.bio-beach__wave-line--1 {
+  top: 10%;
+  animation: bio-wave-sway 7s ease-in-out infinite alternate;
+}
+
+.bio-beach__wave-line--2 {
+  top: 30%;
+  animation: bio-wave-sway 9s ease-in-out 1s infinite alternate-reverse;
+}
+
+@keyframes bio-wave-sway {
+  0% { transform: translate3d(-3%, 0, 0); }
+  100% { transform: translate3d(3%, 0, 0); }
+}
+
+/* Bioluminescent glow spots */
+.bio-beach__glow {
+  position: absolute;
+  left: var(--x);
+  top: 20%;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 204, var(--glow-opacity)), transparent 70%);
+  animation: bio-pulse var(--duration) ease-in-out var(--delay) infinite alternate;
+  will-change: opacity;
+}
+
+@keyframes bio-pulse {
+  0% { opacity: 0.15; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.2; }
+}
+
+/* Fish — underwater */
+.bio-beach__fish {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.6;
+  will-change: transform;
+}
+
+/* Fish 1: swims left to right, SVG head faces right */
+.bio-beach__fish--1 {
+  top: 75%;
+  left: -40px;
+  animation: fish-swim-right 18s linear infinite;
+}
+
+/* Fish 2: swims right to left, SVG head already faces left */
+.bio-beach__fish--2 {
+  top: 85%;
+  right: -30px;
+  animation: fish-swim-left 22s linear 5s infinite;
+}
+
+@keyframes fish-swim-right {
+  0% { transform: translate3d(-40px, 0, 0); }
+  100% { transform: translate3d(calc(100vw + 40px), 0, 0); }
+}
+
+@keyframes fish-swim-left {
+  0% { transform: translate3d(40px, 0, 0); }
+  100% { transform: translate3d(calc(-100vw - 40px), 0, 0); }
+}
+
+/* Fish image sizing */
+.bio-beach__fish--1 img {
+  width: 65px;
+  height: auto;
+  transform: scaleX(-1);
+}
+
+.bio-beach__fish--2 img {
+  width: 58px;
+  height: auto;
+}
+
+/* Ambient glow at bottom — transition into About section */
+.bio-beach::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--dark-ocean));
+  pointer-events: none;
+  z-index: 2;
+}

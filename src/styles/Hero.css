@@ -1,0 +1,294 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* Sky gradient — deep blue top, warms toward the horizon */
+  background: linear-gradient(
+    180deg,
+    #0b1a30 0%,
+    #0d2444 20%,
+    #0c3a5e 42%,
+    #1a5a7a 58%,
+    #2e7a8a 70%,
+    #c47830 85%,
+    #e8923a 95%,
+    #f0a040 100%
+  );
+}
+
+/* Sky layer */
+.hero__sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Sun — fixed low near the horizon, large and warm */
+.hero__sun {
+  position: absolute;
+  left: 60%;
+  bottom: 8%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 230, 160, 0.95) 0%,
+    rgba(255, 180, 60, 0.8) 30%,
+    rgba(241, 119, 32, 0.4) 55%,
+    transparent 70%
+  );
+  transform: translateX(-50%);
+}
+
+/* Sun outer glow — large warm halo */
+.hero__sun::after {
+  content: '';
+  position: absolute;
+  inset: -80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 180, 60, 0.3) 0%,
+    rgba(241, 119, 32, 0.12) 35%,
+    rgba(200, 80, 20, 0.05) 55%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Horizon glow — warm band across the bottom of the hero
+   blends the sun into the waterline and connects to BioBeach */
+.hero__horizon-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(230, 140, 50, 0.08) 30%,
+    rgba(240, 160, 60, 0.15) 55%,
+    rgba(255, 170, 60, 0.2) 75%,
+    rgba(4, 116, 186, 0.25) 100%
+  );
+  pointer-events: none;
+}
+
+/* Sun reflection on the water surface */
+.hero__horizon-glow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  width: 30%;
+  height: 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 200, 100, 0.15) 0%,
+    rgba(255, 180, 60, 0.08) 60%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Waves */
+.hero__waves {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero__wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120%;
+  height: 100%;
+  will-change: transform;
+}
+
+.hero__wave--1 {
+  animation: wave-drift 8s ease-in-out infinite alternate;
+}
+
+.hero__wave--2 {
+  animation: wave-drift-2 6s ease-in-out infinite alternate;
+}
+
+@keyframes wave-drift {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-10%, 0, 0); }
+}
+
+@keyframes wave-drift-2 {
+  0% { transform: translate3d(-10%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Content */
+.hero__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 6rem 2rem 4rem;
+}
+
+/* Signature — the dominant hero moment */
+.hero__signature-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.75rem;
+}
+
+.hero__lannay {
+  width: clamp(300px, 72vw, 920px);
+  height: auto;
+  filter: invert(1) drop-shadow(0 8px 48px rgba(255, 200, 120, 0.55));
+  animation: sig-reveal 2s cubic-bezier(0.25, 0.1, 0.3, 1) 0.4s both;
+}
+
+.hero__dotcom {
+  position: absolute;
+  top: 50%;
+  right: -2px;
+  transform: translateY(-50%);
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: var(--orange-accent);
+  opacity: 0;
+  animation: hero-fade-up 0.5s 2.1s ease both;
+}
+
+/* Credit line — friendly greeting */
+.hero__credit {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  animation: hero-fade-up 0.7s 2.2s ease both;
+}
+
+.hero__wave-hand {
+  font-size: 1.5rem;
+  display: inline-block;
+  animation: wave-hand 2.4s ease-in-out 2.9s 2 both;
+  transform-origin: 70% 80%;
+}
+
+.hero__credit-text {
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+}
+
+.hero__credit-name {
+  font-weight: 700;
+  font-style: normal;
+  color: #fff;
+}
+
+@keyframes wave-hand {
+  0%        { transform: rotate(0deg); }
+  15%       { transform: rotate(18deg); }
+  35%       { transform: rotate(-10deg); }
+  55%       { transform: rotate(16deg); }
+  75%       { transform: rotate(-6deg); }
+  100%      { transform: rotate(0deg); }
+}
+
+.hero__summary {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  line-height: 1.9;
+  animation: hero-fade-up 0.7s 2.55s ease both;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: hero-fade-up 0.7s 2.85s ease both;
+}
+
+/* Scroll cue */
+.hero__scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 195, 100, 0.45);
+  width: 22px;
+  animation: scroll-bob 2s ease-in-out 3.5s infinite both;
+}
+
+.hero__scroll-cue svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Animations */
+@keyframes sig-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.45; }
+  50%       { transform: translateX(-50%) translateY(6px); opacity: 0.7; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero__lannay {
+    width: clamp(260px, 88vw, 500px);
+  }
+
+  .hero__credit {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .hero__credit-divider {
+    display: none;
+  }
+
+  .hero__sun {
+    width: 90px;
+    height: 90px;
+    left: 55%;
+  }
+}

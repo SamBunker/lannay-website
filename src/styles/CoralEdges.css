@@ -1,0 +1,142 @@
+/* ============================================
+   CORAL EDGES — Shared styles for reef elements
+   anchored to viewport edges within each section.
+
+   Architecture:
+   - Each section owns its coral via an __ocean-layer
+   - .coral-edge positions a cluster at left or right
+   - .coral-edge__svg handles individual SVG animations
+   - Depth variants control opacity/color per zone
+
+   Naming: BEM
+     .coral-edge            — positioning container
+     .coral-edge--left/right — side anchor
+     .coral-edge__svg       — animated SVG wrapper
+     .coral-edge__grass     — seagrass (sways more)
+   ============================================ */
+
+/* ---- Container ---- */
+.coral-edge {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.15rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.coral-edge--left {
+  left: 0;
+  transform-origin: bottom left;
+}
+
+.coral-edge--right {
+  right: 0;
+  transform-origin: bottom right;
+}
+
+/* ---- SVG elements ---- */
+.coral-edge__svg {
+  display: block;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+/* Sway speeds by size class */
+.coral-edge__svg--lg {
+  animation: coral-edge-sway 6s ease-in-out infinite alternate;
+}
+
+.coral-edge__svg--md {
+  animation: coral-edge-sway 7s ease-in-out 0.8s infinite alternate;
+}
+
+.coral-edge__svg--sm {
+  animation: coral-edge-sway 5s ease-in-out 1.5s infinite alternate;
+}
+
+/* Seagrass — wider sway range */
+.coral-edge__grass {
+  display: block;
+  transform-origin: bottom center;
+  will-change: transform;
+  animation: coral-edge-grass-sway 3.5s ease-in-out infinite alternate;
+}
+
+/* ---- Keyframes ---- */
+@keyframes coral-edge-sway {
+  0% { transform: rotate(-1.5deg); }
+  100% { transform: rotate(1.5deg); }
+}
+
+@keyframes coral-edge-grass-sway {
+  0% { transform: rotate(-3deg) skewX(-1deg); }
+  100% { transform: rotate(3deg) skewX(1deg); }
+}
+
+/* Coral photo images — replacing SVG paths */
+.coral-edge__img {
+  display: block;
+  transform-origin: bottom center;
+  will-change: transform;
+  object-fit: contain;
+}
+
+.coral-edge__img--lg {
+  height: 200px;
+  animation: coral-edge-sway 6s ease-in-out infinite alternate;
+}
+
+.coral-edge__img--md {
+  height: 140px;
+  animation: coral-edge-sway 7s ease-in-out 0.8s infinite alternate;
+}
+
+.coral-edge__img--sm {
+  height: 90px;
+  animation: coral-edge-sway 5s ease-in-out 1.5s infinite alternate;
+}
+
+/* ---- Depth opacity modifiers ---- */
+/* Shallow: BioBeach, About — brightest coral */
+.coral-edge--shallow {
+  opacity: 0.85;
+}
+
+/* Mid: Portfolio — slightly dimmer */
+.coral-edge--mid {
+  opacity: 0.65;
+}
+
+/* Deep: Experience — sparse and faint */
+.coral-edge--deep {
+  opacity: 0.4;
+}
+
+/* Abyss: Contact — barely visible */
+.coral-edge--abyss {
+  opacity: 0.25;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .coral-edge {
+    transform: scale(0.75);
+  }
+  .coral-edge--left { transform-origin: bottom left; }
+  .coral-edge--right { transform-origin: bottom right; }
+}
+
+@media (max-width: 768px) {
+  .coral-edge {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .coral-edge {
+    display: none;
+  }
+}

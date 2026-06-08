@@ -1,0 +1,107 @@
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.accent-text {
+  color: var(--orange-accent);
+}
+
+/* Solid pill button */
+.btn-wave {
+  display: inline-block;
+  padding: 0.85rem 2.5rem;
+  border: 2px solid var(--bright-cyan);
+  color: #0b1a30;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: var(--bright-cyan);
+  position: relative;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease,
+              transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+/* Ship icon — fades in on hover, left of every button */
+.btn-wave::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -50px;
+  width: 38px;
+  height: 38px;
+  margin-top: -19px;
+  background-image: url('../assets/images/pirate-ship-icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  animation: ship-bob 3s ease-in-out infinite;
+}
+
+.btn-wave:hover::before {
+  opacity: 1;
+}
+
+.btn-wave:hover {
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 167, 225, 0.4);
+}
+
+.btn-wave:active {
+  transform: translateY(0);
+}
+
+/* Accent variant */
+.btn-wave--accent {
+  border-color: var(--orange-accent);
+  color: #0b1a30;
+  background: var(--orange-accent);
+  margin-left: 50px;
+}
+
+.btn-wave--accent:hover {
+  color: #000;
+  box-shadow: 0 6px 20px rgba(241, 119, 32, 0.4);
+}
+
+@keyframes ship-bob {
+  0%, 100% { transform: scaleX(-1) translateY(0px) rotate(-1deg); }
+  50%       { transform: scaleX(-1) translateY(-3px) rotate(1deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-wave::before {
+    animation: none;
+    transform: scaleX(-1);
+  }
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}

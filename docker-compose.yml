@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Lannay Portfolio Website - Chloe Webb
+  lannay-portfolio:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${INTERNAL_PORT}:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+    networks:
+      - d-nginx_default
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://${LOGGING_IP}:1514"
+        tag: "lannay-portfolio"
+
+networks:
+  d-nginx_default:
+    external: true

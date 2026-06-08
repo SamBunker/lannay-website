@@ -1,0 +1,57 @@
+.sand-floor {
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(
+    180deg,
+    #0d2233 0%,
+    #0a1f2e 50%,
+    #081a28 100%
+  );
+  min-height: 120px;
+  padding-bottom: 2rem;
+}
+
+/* Water-to-sand wave boundary */
+.sand-floor__boundary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  color: #0d2233;
+  transform: translateY(-99%);
+  pointer-events: none;
+  filter: drop-shadow(0 -4px 12px rgba(194, 155, 80, 0.2));
+}
+
+/* Chest sits on the wave boundary */
+.sand-floor__chest {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  transform: translateY(-60%);
+  z-index: 2;
+}
+
+.sand-floor__chest img {
+  width: 100px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+/* Subtle sand shimmer at the bottom */
+.sand-floor::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: radial-gradient(
+    ellipse 70% 100% at 50% 100%,
+    rgba(200, 160, 90, 0.08),
+    transparent
+  );
+  pointer-events: none;
+}

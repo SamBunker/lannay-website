@@ -6,10 +6,10 @@ function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__inner">
-          <img src={lannayLogo} alt="Lannay" className="footer__brand-logo" />
+
           <span className="footer__copy">&copy; {new Date().getFullYear()} Chloe Webb. All rights reserved.</span>
           <span className="footer__attribution">
-            Icons by <a href="https://icons8.com" target="_blank" rel="noopener noreferrer">Icons8</a>
+            Made by <a href="https://sambunker.com" target="_blank" rel="noopener noreferrer">Samuel Bunker</a>
           </span>
           <a href="#hero" className="footer__top">↑ Surface</a>
         </div>

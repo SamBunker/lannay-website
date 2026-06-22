@@ -1,0 +1,104 @@
+/* ============================================
+   LANNAY — Ocean Portfolio
+   Color Palette:
+     Deep Navy:    #0a1628
+     Dark Ocean:   #0d2137
+     Ocean Blue:   #0474BA
+     Bright Cyan:  #00A7E1
+     Orange Accent: #F17720
+     Warm Orange:  #FFA630
+     Sandy Beige:  #EBEBEB
+     Bioluminescent: #00ffcc
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+  --deep-navy: #0a1628;
+  --dark-ocean: #0d2137;
+  --mid-ocean: #0c3a5e;
+  --ocean-blue: #0474BA;
+  --bright-cyan: #00A7E1;
+  --orange-accent: #F17720;
+  --warm-orange: #FFA630;
+  --sandy-beige: #EBEBEB;
+  --white: #ffffff;
+  --bioluminescent: #00ffcc;
+  --coral-pink: #ff6b8a;
+  --deep-purple: #1a0a2e;
+
+  --text-primary: var(--white);
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --accent: var(--orange-accent);
+
+  --font-heading: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Open Sans', system-ui, sans-serif;
+
+  --container-max: 1200px;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--deep-navy);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+a {
+  color: var(--bright-cyan);
+  text-decoration: none;
+  transition: color var(--transition-smooth);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--deep-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mid-ocean);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ocean-blue);
+}
+
+::selection {
+  background: var(--ocean-blue);
+  color: var(--white);
+}

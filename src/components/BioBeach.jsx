@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 import '../styles/BioBeach.css';
 import palePinkCoral from '../assets/images/pale-pink-coral.png';
 import redColoredCoral from '../assets/images/red-colored-coral.png';
@@ -7,7 +7,7 @@ import yellowFish from '../assets/images/scandi-animal-yellow-fish.png';
 import smallGreenFish from '../assets/images/small-green-fish.png';
 
 function BioBeach() {
-  const glowSpots = useMemo(() =>
+  const [glowSpots] = useState(() =>
     Array.from({ length: 20 }, (_, i) => ({
       id: i,
       x: `${Math.random() * 100}%`,
@@ -15,8 +15,8 @@ function BioBeach() {
       duration: `${2 + Math.random() * 3}s`,
       size: `${3 + Math.random() * 8}px`,
       opacity: 0.3 + Math.random() * 0.5,
-    })),
-  []);
+    }))
+  );
 
   return (
     <section className="bio-beach">

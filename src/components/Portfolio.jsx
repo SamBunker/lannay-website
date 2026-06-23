@@ -61,8 +61,8 @@ function Portfolio() {
           <span className="accent-text">My Work</span>
         </h2>
         <p className="section-subtitle">
-          From brand strategy to event coordination — here's a collection of projects
-          where I've helped organizations connect with their audiences.
+          From brand strategy to event coordination — here&apos;s a collection of projects
+          where I&apos;ve helped organizations connect with their audiences.
         </p>
 
         {/* Filter tabs */}

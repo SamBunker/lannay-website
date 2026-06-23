@@ -1,4 +1,3 @@
-import lannayLogo from '../assets/images/lannay.svg';
 import '../styles/Footer.css';
 
 function Footer() {

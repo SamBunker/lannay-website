@@ -127,7 +127,7 @@ function Navbar() {
                 {focused && query.length >= 2 && (
                   <div className="nav__search-dropdown">
                     {Object.keys(grouped).length === 0 ? (
-                      <div className="nav__search-empty">No results for "{query}"</div>
+                      <div className="nav__search-empty">No results for &ldquo;{query}&rdquo;</div>
                     ) : (
                       Object.entries(grouped).map(([group, items]) => (
                         <div key={group} className="nav__search-group">

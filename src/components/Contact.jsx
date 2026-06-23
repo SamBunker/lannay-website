@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../styles/Contact.css';
 import anglerfish from '../assets/images/anglerfish.webp';
 
@@ -80,15 +80,15 @@ function TreasureChest() {
 }
 
 function Contact() {
-  const particles = useMemo(() =>
+  const [particles] = useState(() =>
     Array.from({ length: 20 }, (_, i) => ({
       id: i,
       delay: `${Math.random() * 6}s`,
       x: `${Math.random() * 100}%`,
       duration: `${4 + Math.random() * 6}s`,
       size: `${2 + Math.random() * 4}px`,
-    })),
-  []);
+    }))
+  );
 
   return (
     <section className="contact" id="contact">
@@ -114,12 +114,12 @@ function Contact() {
           <div className="contact__left">
             <p className="section-label" style={{ color: 'var(--bioluminescent)' }}>Get In Touch</p>
             <h2 className="section-title">
-              Let's Create<br />
+              Let&apos;s Create<br />
               <span className="accent-text">Together</span>
             </h2>
             <p className="contact__desc">
               Whether you need a marketing strategy, brand consultation, event coordination,
-              or creative content — I'd love to hear about your project.
+              or creative content — I&apos;d love to hear about your project.
             </p>
 
             <div className="contact__links">

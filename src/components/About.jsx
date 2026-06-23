@@ -36,7 +36,7 @@ function About() {
                 <span className="accent-text">Strategic Mind</span>
               </h2>
               <p className="about__bio">
-                I'm Chloe Webb — a creative professional with a background in Psychology,
+                I&apos;m Chloe Webb — a creative professional with a background in Psychology,
                 Marketing, and Integrated Media Arts. I thrive at the intersection of strategy
                 and storytelling, helping organizations build authentic brands that connect
                 with their communities.
@@ -44,7 +44,7 @@ function About() {
               <p className="about__bio">
                 From directing marketing efforts for a collegiate esports program to consulting
                 for local businesses and nonprofits, I bring a detail-oriented, audience-first
-                approach to every project. Whether it's crafting a social media strategy,
+                approach to every project. Whether it&apos;s crafting a social media strategy,
                 designing print materials, or planning a community event — I love turning
                 ideas into impact.
               </p>

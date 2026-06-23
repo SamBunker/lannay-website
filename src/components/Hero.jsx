@@ -27,7 +27,7 @@ function Hero() {
         <div className="hero__credit">
           <span className="hero__wave-hand">👋</span>
           <span className="hero__credit-text">
-            Hi, I'm <strong className="hero__credit-name">Chloe Webb</strong> — and I love making ideas come to life.
+            Hi, I&apos;m <strong className="hero__credit-name">Chloe Webb</strong> — and I love making ideas come to life.
           </span>
         </div>
 

@@ -34,7 +34,10 @@ export const categories = [
         images: [
           { src: kishBankAd, alt: 'Kish Bank print advertisement — "Your Kish. Your Way."', caption: 'Print ad designed as part of the IMC campaign deliverable — navy and gold brand palette.' },
         ],
-        documents: [],
+        documents: [
+          { name: 'IMC Analysis Report', type: 'pdf', url: '#' },
+          { name: 'Campaign Strategy Deck', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'sun-motor-cars',
@@ -51,7 +54,10 @@ export const categories = [
         images: [
           { src: sunMotorCarsAd, alt: 'Sun Motor Cars magazine advertisement for collision repair center', caption: 'Magazine-format print ad created as part of the broader marketing strategy deliverable.' },
         ],
-        documents: [],
+        documents: [
+          { name: 'Marketing Strategy Report', type: 'pdf', url: '#' },
+          { name: 'Print Ad Assets', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'standing-stone-coffee',
@@ -66,7 +72,10 @@ export const categories = [
           'Developed social content strategy for increased local visibility',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Brand Development Deck', type: 'pdf', url: '#' },
+          { name: 'Content Strategy Overview', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'thebiziapp',
@@ -83,7 +92,10 @@ export const categories = [
         images: [
           { src: biziAppPoster, alt: 'TheBiziApp promotional poster — "By the Students, For the Students"', caption: 'Promotional poster developed to drive campus awareness and app downloads among college students.' },
         ],
-        documents: [],
+        documents: [
+          { name: 'Audience Analysis Report', type: 'pdf', url: '#' },
+          { name: 'Branding & Growth Strategy', type: 'pdf', url: '#' },
+        ],
       },
       {
         id: 'reclamere',
@@ -98,7 +110,10 @@ export const categories = [
           'Translated analysis into measurable strategies for short- and long-term impact',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'B2B Outreach Strategy', type: 'pdf', url: '#' },
+          { name: 'Brand Consistency Guidelines', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'jana-marie-foundation',
@@ -113,7 +128,10 @@ export const categories = [
           'Presented strategic pitches to foundation stakeholders',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Nonprofit Campaign Pitch', type: 'pdf', url: '#' },
+          { name: 'Outreach Materials', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'chow-korral',
@@ -128,7 +146,10 @@ export const categories = [
           'Created content aligned with brand voice and business goals',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Brand Strategy Deck', type: 'pdf', url: '#' },
+          { name: 'Content & Social Plan', type: 'link', url: '#' },
+        ],
       },
     ]
   },
@@ -150,7 +171,9 @@ export const categories = [
           'Designed for both large-format print and social media sizing',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Event Poster Collection', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'social-media-content',
@@ -165,7 +188,9 @@ export const categories = [
           'Tracked engagement metrics to refine content approach',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Social Media Portfolio', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'brand-guidelines',
@@ -180,7 +205,9 @@ export const categories = [
           'Ensured brand voice consistency across all materials',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Brand Guidelines Document', type: 'pdf', url: '#' },
+        ],
       },
       {
         id: 'promotional-videos',
@@ -195,7 +222,9 @@ export const categories = [
           'Developed video assets aligned with marketing campaign goals',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Promo Video Reel', type: 'video', url: '#' },
+        ],
       },
     ]
   },
@@ -220,7 +249,11 @@ export const categories = [
         images: [
           { src: jcKitchenGraphic, alt: 'Juniata College Esports branded kitchen rules graphic', caption: 'Branded internal communications graphic — maintaining program culture and identity across the facility.' },
         ],
-        documents: [],
+        documents: [
+          { name: 'Marketing Strategy Overview', type: 'pdf', url: '#' },
+          { name: 'Social Media Portfolio', type: 'link', url: '#' },
+          { name: 'Event Highlight Reel', type: 'video', url: '#' },
+        ],
       },
       {
         id: 'ministry-of-games',
@@ -239,7 +272,10 @@ export const categories = [
           { src: mogLogoW, alt: 'Ministry of Games official club logo', caption: 'Official MoG brand identity — controller-shaped logo with tabletop dice, representing the club\'s dual board game and video game identity.' },
           { src: mogLogoB, alt: 'Ministry of Games logo — dark variant', caption: 'Dark-background logo variant used across event materials and social media.' },
         ],
-        documents: [],
+        documents: [
+          { name: 'Club Brand Assets', type: 'link', url: '#' },
+          { name: 'Event Recap & Highlights', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'lcs-fan-fest',
@@ -255,7 +291,9 @@ export const categories = [
           'Ensured a positive, memorable experience for attendees',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Event Photos & Recap', type: 'link', url: '#' },
+        ],
       },
       {
         id: 'pax-east',
@@ -271,7 +309,9 @@ export const categories = [
           'Represented the mission of video game education in schools',
         ],
         images: [],
-        documents: [],
+        documents: [
+          { name: 'Convention Photos & Recap', type: 'link', url: '#' },
+        ],
       },
     ]
   }

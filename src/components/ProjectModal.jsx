@@ -38,45 +38,46 @@ function ProjectModal({ project, onClose }) {
           </svg>
         </button>
 
-        {/* Header */}
-        <div className="modal__header">
-          <span className="modal__type">{project.type}</span>
-          <h2 className="modal__title">{project.name}</h2>
-          <div className="modal__meta">
-            <span className="modal__date">{project.date}</span>
-            <div className="modal__tags">
-              {project.tags.map(tag => (
-                <span key={tag} className="modal__tag">{tag}</span>
-              ))}
+        {/* Split: left = header + description, right = gallery */}
+        <div className={`modal__split${project.images && project.images.length > 0 ? '' : ' modal__split--no-media'}`}>
+          <div className="modal__split-left">
+            <div className="modal__header">
+              <span className="modal__type">{project.type}</span>
+              <h2 className="modal__title">{project.name}</h2>
+              <div className="modal__meta">
+                <span className="modal__date">{project.date}</span>
+                <div className="modal__tags">
+                  {project.tags.map(tag => (
+                    <span key={tag} className="modal__tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="modal__body">
+              <p className="modal__description">{project.description}</p>
+
+              {project.highlights && project.highlights.length > 0 && (
+                <div className="modal__highlights">
+                  <h3 className="modal__section-title">Key Contributions</h3>
+                  <ul>
+                    {project.highlights.map((h, i) => (
+                      <li key={i}>{h}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
-        </div>
 
-        {/* Images gallery */}
-        {project.images && project.images.length > 0 && (
-          <div className="modal__gallery">
-            {project.images.map((img, i) => (
-              <div key={i} className="modal__gallery-item">
-                <img src={img.src} alt={img.alt || project.name} />
-                {img.caption && <p className="modal__gallery-caption">{img.caption}</p>}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Description */}
-        <div className="modal__body">
-          <p className="modal__description">{project.description}</p>
-
-          {/* Highlights */}
-          {project.highlights && project.highlights.length > 0 && (
-            <div className="modal__highlights">
-              <h3 className="modal__section-title">Key Contributions</h3>
-              <ul>
-                {project.highlights.map((h, i) => (
-                  <li key={i}>{h}</li>
-                ))}
-              </ul>
+          {project.images && project.images.length > 0 && (
+            <div className="modal__split-right">
+              {project.images.map((img, i) => (
+                <div key={i} className="modal__gallery-item">
+                  <img src={img.src} alt={img.alt || project.name} />
+                  {img.caption && <p className="modal__gallery-caption">{img.caption}</p>}
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -84,24 +85,26 @@ function ProjectModal({ project, onClose }) {
         {/* Documents / Links */}
         {project.documents && project.documents.length > 0 && (
           <div className="modal__documents">
-            <h3 className="modal__section-title">Documents & Links</h3>
+            <h3 className="modal__section-title">Documents &amp; Links</h3>
             <div className="modal__doc-list">
               {project.documents.map((doc, i) => (
-                <a
-                  key={i}
-                  href={doc.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="modal__doc"
-                >
-                  <span className="modal__doc-icon">
-                    {doc.type === 'pdf' ? '📄' : doc.type === 'link' ? '🔗' : doc.type === 'video' ? '🎬' : '📁'}
-                  </span>
-                  <span className="modal__doc-info">
+                <div key={i} className="modal__doc-card">
+                  <div className="modal__doc-card-body">
+                    <span className={`modal__doc-badge modal__doc-badge--${doc.type || 'file'}`}>
+                      {(doc.type || 'file').toUpperCase()}
+                    </span>
                     <span className="modal__doc-name">{doc.name}</span>
-                    <span className="modal__doc-type">{doc.type?.toUpperCase()}</span>
-                  </span>
-                </a>
+                  </div>
+                  <a
+                    href={doc.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="modal__doc-action"
+                    aria-label={`Open ${doc.name}`}
+                  >
+                    {doc.type === 'pdf' ? 'View ↗' : doc.type === 'video' ? 'Watch ↗' : 'Open ↗'}
+                  </a>
+                </div>
               ))}
             </div>
           </div>

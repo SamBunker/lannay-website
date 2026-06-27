@@ -1,7 +1,58 @@
-import lannayLogo from '../assets/images/lannay.svg';
+import { useEffect, useRef } from 'react';
 import '../styles/Hero.css';
 
+const STATEMENT_WORDS = [
+  { text: 'Ideas',      accent: false },
+  { text: 'deserve',    accent: false },
+  { text: '\n',         break: true   },
+  { text: 'better',     accent: true  },
+  { text: 'execution.', accent: false },
+];
+
+const BASE_DELAY = 0.15;
+const CHAR_STEP  = 0.018;
+
 function Hero() {
+  const statementRef = useRef(null);
+
+  useEffect(() => {
+    const el = statementRef.current;
+    if (!el) return;
+
+    let charIndex = 0;
+
+    STATEMENT_WORDS.forEach((word, wi) => {
+      if (word.break) {
+        el.appendChild(document.createElement('br'));
+        return;
+      }
+
+      if (wi > 0 && !STATEMENT_WORDS[wi - 1].break) {
+        const sp = document.createElement('span');
+        sp.className = 'hero__char hero__char--space';
+        sp.style.animationDelay = `${BASE_DELAY + charIndex * CHAR_STEP}s`;
+        sp.innerHTML = '&nbsp;';
+        el.appendChild(sp);
+        charIndex++;
+      }
+
+      const wordWrap = document.createElement('span');
+      wordWrap.style.cssText = 'display:inline-block;white-space:nowrap;';
+      el.appendChild(wordWrap);
+
+      for (const ch of word.text) {
+        const span = document.createElement('span');
+        span.className = 'hero__char' + (word.accent ? ' hero__char--accent' : '');
+        span.style.animationDelay = `${BASE_DELAY + charIndex * CHAR_STEP}s`;
+        span.textContent = ch;
+        wordWrap.appendChild(span);
+        charIndex++;
+      }
+    });
+
+    return () => { el.innerHTML = ''; };
+  }, []);
+
   return (
     <section className="hero" id="hero">
       <div className="hero__sky">
@@ -19,26 +70,19 @@ function Hero() {
       </div>
 
       <div className="hero__content">
-        <div className="hero__signature-wrap">
-          <img src={lannayLogo} alt="Lannay" className="hero__lannay" />
-          <span className="hero__dotcom">.com</span>
-        </div>
+        <p className="hero__statement" ref={statementRef} />
 
-        <div className="hero__credit">
-          <span className="hero__wave-hand">👋</span>
-          <span className="hero__credit-text">
-            Hi, I&apos;m <strong className="hero__credit-name">Chloe Webb</strong> — and I love making ideas come to life.
-          </span>
+        <div className="hero__identity-bar">
+          <span className="hero__id-name">Chloe Webb</span>
+          <span className="hero__id-sep" />
+          <span className="hero__id-logo">Lannay<span className="hero__dotcom">.com</span></span>
+          <span className="hero__id-sep" />
+          <span className="hero__id-role">Brand Strategy &amp; Design</span>
         </div>
-
-        <p className="hero__summary">
-          I help organizations communicate consistently, engage communities,
-          and bring ideas to life through strategy and design.
-        </p>
 
         <div className="hero__actions">
           <a href="#portfolio" className="btn-wave">View My Work</a>
-          <a href="#contact" className="btn-wave btn-wave--accent">Get In Touch</a>
+          <a href="#contact" className="btn-wave btn-wave--ghost">Get In Touch</a>
         </div>
 
         <div className="hero__scroll-cue">

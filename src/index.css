@@ -32,7 +32,7 @@
   --text-muted: rgba(255, 255, 255, 0.5);
   --accent: var(--orange-accent);
 
-  --font-heading: 'Montserrat', system-ui, sans-serif;
+  --font-heading: 'Georgia', serif;
   --font-body: 'Open Sans', system-ui, sans-serif;
 
   --container-max: 1200px;

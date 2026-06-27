@@ -52,9 +52,7 @@ function BioBeach() {
       {/* Foam line where waves meet shore */}
       <div className="bio-beach__foam"></div>
 
-      {/* Rocky outcrops — coral grows from these */}
-      <div className="bio-beach__rock bio-beach__rock--left"></div>
-      <div className="bio-beach__rock bio-beach__rock--right"></div>
+
 
       {/* Coral edge — left */}
       <div className="coral-edge coral-edge--left coral-edge--shallow">

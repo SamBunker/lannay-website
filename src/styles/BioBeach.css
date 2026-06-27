@@ -145,25 +145,7 @@
   height: auto;
 }
 
-/* Rocky outcrops at each side — coral appears to grow from these */
-.bio-beach__rock {
-  position: absolute;
-  bottom: 0;
-  width: 160px;
-  height: 120px;
-  z-index: 0;
-  pointer-events: none;
-}
 
-.bio-beach__rock--left {
-  left: 0;
-  background: radial-gradient(ellipse at 20% 90%, #1a0e0a 0%, #2c1a10 35%, #1f1208 60%, transparent 85%);
-}
-
-.bio-beach__rock--right {
-  right: 0;
-  background: radial-gradient(ellipse at 80% 90%, #1a0e0a 0%, #2c1a10 35%, #1f1208 60%, transparent 85%);
-}
 
 /* Ambient glow at bottom — transition into About section */
 .bio-beach::after {

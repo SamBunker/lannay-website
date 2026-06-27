@@ -73,6 +73,20 @@
   transform: translateY(0);
 }
 
+/* Ghost variant — transparent with white border */
+.btn-wave--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.btn-wave--ghost:hover {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+  box-shadow: none;
+}
+
 /* Accent variant */
 .btn-wave--accent {
   border-color: var(--orange-accent);

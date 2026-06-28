@@ -216,9 +216,11 @@ function Contact() {
 
               {status === 'error' && <p className="contact__error" role="alert">{error}</p>}
 
-              <button type="submit" className="btn-wave" disabled={status === 'sending'}>
-                {status === 'sending' ? 'Transmitting…' : 'Send Message'}
-              </button>
+              <div className="contact__form-actions">
+                <button type="submit" className="btn-wave" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Transmitting…' : 'Send Message'}
+                </button>
+              </div>
             </form>
           )}
         </div>

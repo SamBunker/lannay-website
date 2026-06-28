@@ -267,7 +267,12 @@
 }
 
 .contact__turnstile {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact__form-actions {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .contact__error {

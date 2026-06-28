@@ -138,14 +138,6 @@ function Contact() {
             </p>
 
             <div className="contact__links">
-              <a href="mailto:webbcl20@gmail.com" className="contact__link">
-                <span className="contact__link-icon">✉</span>
-                <div className="contact__link-text">
-                  <strong>Email</strong>
-                  <span>webbcl20@gmail.com</span>
-                </div>
-              </a>
-
               <a href="https://linkedin.com/in/webbcl" target="_blank" rel="noopener noreferrer" className="contact__link">
                 <span className="contact__link-icon">in</span>
                 <div className="contact__link-text">

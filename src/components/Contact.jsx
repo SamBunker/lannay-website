@@ -2,82 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import '../styles/Contact.css';
 import anglerfish from '../assets/images/anglerfish.webp';
 
-function TreasureChest() {
-  const [phase, setPhase] = useState('closed'); // closed | open | grabbed | gone
-  const timerRef = useRef(null);
+const TURNSTILE_SITEKEY = '0x4AAAAAADsbGJuYr_lMqDHf';
+const SITEVERIFY_URL = 'https://turnstile-siteverify-lannay.samuelbunker.workers.dev';
 
-  const handleClick = () => {
-    if (phase !== 'closed') return;
-    setPhase('open');
-    timerRef.current = setTimeout(() => setPhase('grabbed'), 3000);
-  };
-
-  useEffect(() => {
-    if (phase === 'grabbed') {
-      timerRef.current = setTimeout(() => setPhase('gone'), 1800);
-    }
-    return () => clearTimeout(timerRef.current);
-  }, [phase]);
-
-  if (phase === 'gone') return null;
-
-  return (
-    <div className={`chest-wrap chest-wrap--${phase}`} onClick={handleClick} role="button" tabIndex={0} aria-label="Open treasure chest">
-      {/* Bubbles that float up when chest opens */}
-      {(phase === 'open' || phase === 'grabbed') && (
-        <div className="chest__bubbles">
-          {[...Array(8)].map((_, i) => (
-            <div key={i} className="chest__bubble" style={{ '--i': i }} />
-          ))}
-        </div>
-      )}
-
-      {/* Squid arm that reaches in when grabbed */}
-      {(phase === 'grabbed') && (
-        <div className="chest__squid-arm">
-          <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M120,30 C90,25 70,15 50,20 C35,24 20,32 10,30" stroke="rgba(180,100,220,0.85)" strokeWidth="8" strokeLinecap="round" fill="none"/>
-            <path d="M50,20 C48,10 44,5 40,8" stroke="rgba(180,100,220,0.7)" strokeWidth="4" strokeLinecap="round"/>
-            <path d="M35,24 C32,14 28,10 25,13" stroke="rgba(180,100,220,0.7)" strokeWidth="3.5" strokeLinecap="round"/>
-            <path d="M20,30 C18,20 15,16 12,18" stroke="rgba(180,100,220,0.7)" strokeWidth="3" strokeLinecap="round"/>
-          </svg>
-        </div>
-      )}
-
-      {/* Chest SVG */}
-      <svg className={`chest__svg chest__svg--${phase}`} viewBox="0 0 90 65" xmlns="http://www.w3.org/2000/svg">
-        {/* Chest body */}
-        <rect x="5" y="32" width="80" height="28" rx="4" fill="#5c3d0e" stroke="#3a2508" strokeWidth="1.5"/>
-        <rect x="5" y="40" width="80" height="4" fill="#c8920a" opacity="0.75"/>
-        {/* Lock plate */}
-        <rect x="36" y="34" width="18" height="14" rx="2" fill="#c8920a" stroke="#7a5506" strokeWidth="1"/>
-        <circle cx="45" cy="39" r="3.5" fill="#3a2508"/>
-        <rect x="43" y="40" width="4" height="5" rx="1" fill="#3a2508"/>
-        {/* Lid — open state rotates this group */}
-        <g className={`chest__lid ${phase === 'open' || phase === 'grabbed' ? 'chest__lid--open' : ''}`}>
-          <rect x="5" y="8" width="80" height="26" rx="4" fill="#7a5212" stroke="#3a2508" strokeWidth="1.5"/>
-          <path d="M5,24 Q45,8 85,24" fill="#6b4510" stroke="#3a2508" strokeWidth="1"/>
-          <rect x="5" y="26" width="80" height="4" fill="#c8920a" opacity="0.75"/>
-          {/* Lid hinges */}
-          <circle cx="15" cy="32" r="3" fill="#c8920a" stroke="#7a5506" strokeWidth="0.8"/>
-          <circle cx="75" cy="32" r="3" fill="#c8920a" stroke="#7a5506" strokeWidth="0.8"/>
-        </g>
-        {/* Gold coins peeking out when open */}
-        {(phase === 'open' || phase === 'grabbed') && (
-          <>
-            <ellipse cx="38" cy="34" rx="6" ry="3" fill="#f0b800" opacity="0.9"/>
-            <ellipse cx="50" cy="33" rx="5" ry="2.5" fill="#e8a500" opacity="0.85"/>
-            <ellipse cx="58" cy="34" rx="4" ry="2" fill="#f0b800" opacity="0.9"/>
-          </>
-        )}
-      </svg>
-
-      {!['open', 'grabbed'].includes(phase) && (
-        <span className="chest__hint">click me</span>
-      )}
-    </div>
-  );
-}
+const EMPTY = { name: '', email: '', message: '', honey: '' };
 
 function Contact() {
   const [particles] = useState(() =>
@@ -89,6 +17,93 @@ function Contact() {
       size: `${2 + Math.random() * 4}px`,
     }))
   );
+
+  const [form, setForm] = useState(EMPTY);
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [error, setError] = useState('');
+  const tsRef = useRef(null);
+  const tsWidgetId = useRef(null);
+
+  useEffect(() => {
+    if (!TURNSTILE_SITEKEY) return;
+    const render = () => {
+      if (!tsRef.current || tsWidgetId.current !== null) return;
+      tsWidgetId.current = window.turnstile.render(tsRef.current, {
+        sitekey: TURNSTILE_SITEKEY,
+        action: 'turnstile-spin-v1',
+        theme: 'dark',
+      });
+    };
+    if (window.turnstile) {
+      render();
+    } else {
+      const script = document.querySelector('script[src*="turnstile"]');
+      if (script) script.addEventListener('load', render);
+      return () => script?.removeEventListener('load', render);
+    }
+  }, []);
+
+  const resetTurnstile = () => {
+    if (window.turnstile && tsWidgetId.current !== null) {
+      window.turnstile.reset(tsWidgetId.current);
+    }
+  };
+
+  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (status === 'sending') return;
+    setStatus('sending');
+    setError('');
+
+    try {
+      if (TURNSTILE_SITEKEY && SITEVERIFY_URL) {
+        const tsToken = (window.turnstile && tsWidgetId.current !== null)
+          ? window.turnstile.getResponse(tsWidgetId.current)
+          : document.querySelector('[name="cf-turnstile-response"]')?.value || '';
+
+        if (!tsToken) {
+          setStatus('error');
+          setError('Please complete the security check.');
+          return;
+        }
+
+        const tsRes = await fetch(SITEVERIFY_URL, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ token: tsToken }),
+        });
+        const tsData = await tsRes.json().catch(() => ({}));
+        if (!tsData.success) {
+          setStatus('error');
+          setError('Security check failed. Please try again.');
+          resetTurnstile();
+          return;
+        }
+      }
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.ok) {
+        setStatus('success');
+        setForm(EMPTY);
+        resetTurnstile();
+      } else {
+        setStatus('error');
+        setError(data.error || 'Something went wrong. Please try again.');
+        resetTurnstile();
+      }
+    } catch {
+      setStatus('error');
+      setError('Network error. Please check your connection and try again.');
+    }
+  };
 
   return (
     <section className="contact" id="contact">
@@ -109,8 +124,8 @@ function Contact() {
       </div>
 
       <div className="container">
+        {/* Top: contact info + anglerfish */}
         <div className="contact__layout">
-          {/* Left: contact info */}
           <div className="contact__left">
             <p className="section-label" style={{ color: 'var(--bioluminescent)' }}>Get In Touch</p>
             <h2 className="section-title">
@@ -141,7 +156,6 @@ function Contact() {
             </div>
           </div>
 
-          {/* Right: anglerfish */}
           <div className="contact__right">
             <div className="contact__anglerfish-wrap">
               <img src={anglerfish} alt="illustrated deep sea anglerfish" />
@@ -149,9 +163,64 @@ function Contact() {
           </div>
         </div>
 
-        {/* Treasure chest — bottom of section */}
-        <div className="contact__chest-area">
-          <TreasureChest />
+        {/* Contact form */}
+        <div className="contact__form-wrap">
+          <div className="contact__form-header">
+            <p className="section-label" style={{ color: 'var(--bioluminescent)' }}>Send a Signal</p>
+            <h3 className="contact__form-title">Drop a Message<br /><span className="accent-text">Into the Deep</span></h3>
+          </div>
+
+          {status === 'success' ? (
+            <div className="contact__success" role="status">
+              <div className="contact__success-icon">
+                <div className="contact__success-bubbles">
+                  {[...Array(5)].map((_, i) => <span key={i} className="contact__success-bubble" style={{ '--i': i }} />)}
+                </div>
+                ✓
+              </div>
+              <h4>Message received.</h4>
+              <p>Thanks for reaching out — I&apos;ll get back to you soon.</p>
+              <button type="button" className="btn-wave btn-wave--ghost" onClick={() => setStatus('idle')}>
+                Send another
+              </button>
+            </div>
+          ) : (
+            <form className="contact__form" onSubmit={handleSubmit} noValidate>
+              <div className="contact__fields-row">
+                <div className="contact__field">
+                  <label htmlFor="lc-name">Name <span aria-hidden="true">*</span></label>
+                  <input id="lc-name" type="text" required placeholder="Your name"
+                    autoComplete="name" value={form.name} onChange={update('name')} />
+                </div>
+                <div className="contact__field">
+                  <label htmlFor="lc-email">Email <span aria-hidden="true">*</span></label>
+                  <input id="lc-email" type="email" required placeholder="your@email.com"
+                    autoComplete="email" value={form.email} onChange={update('email')} />
+                </div>
+              </div>
+
+              <div className="contact__field">
+                <label htmlFor="lc-message">Message <span aria-hidden="true">*</span></label>
+                <textarea id="lc-message" rows="5" required placeholder="Tell me about your project..."
+                  value={form.message} onChange={update('message')} />
+              </div>
+
+              {/* Honeypot */}
+              <div className="contact__hp" aria-hidden="true">
+                <label htmlFor="lc-honey">Website</label>
+                <input id="lc-honey" type="text" tabIndex={-1} autoComplete="off"
+                  value={form.honey} onChange={update('honey')} />
+              </div>
+
+              {TURNSTILE_SITEKEY && <div ref={tsRef} className="cf-turnstile contact__turnstile" />}
+
+              {status === 'error' && <p className="contact__error" role="alert">{error}</p>}
+
+              <button type="submit" className="btn-wave" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Transmitting…' : 'Send Message'}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </section>

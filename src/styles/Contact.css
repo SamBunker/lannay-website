@@ -186,116 +186,174 @@
   color: var(--bioluminescent);
 }
 
-/* ---- Treasure chest ---- */
-.contact__chest-area {
+/* ---- Contact form ---- */
+.contact__form-wrap {
+  margin-top: 4rem;
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(0, 255, 204, 0.08);
+  box-shadow: 0 0 60px rgba(0, 255, 204, 0.03), inset 0 1px 0 rgba(255,255,255,0.04);
+  position: relative;
+}
+
+.contact__form-header {
+  margin-bottom: 2rem;
+}
+
+.contact__form-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-top: 0.5rem;
+}
+
+.contact__form {
   display: flex;
-  justify-content: flex-start;
-  padding: 2rem 0 0;
-}
-
-.chest-wrap {
-  position: relative;
-  display: inline-flex;
   flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
+  gap: 0;
 }
 
-.chest-wrap--closed:hover .chest__svg {
-  filter: drop-shadow(0 0 10px rgba(200, 146, 10, 0.6));
+.contact__fields-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
-.chest__svg {
-  width: 90px;
-  height: auto;
-  transition: transform 0.3s ease;
-  position: relative;
-  z-index: 2;
+.contact__field {
+  margin-bottom: 1.75rem;
 }
 
-/* Lid hinge animation */
-.chest__lid {
-  transform-origin: 45px 32px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.chest__lid--open {
-  transform: rotate(-105deg);
-}
-
-.chest__hint {
-  font-size: 0.65rem;
+.contact__field label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.contact__field label span {
+  color: var(--bioluminescent);
+}
+
+.contact__field input,
+.contact__field textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.65rem 0;
+  resize: vertical;
+  transition: border-color var(--transition-smooth);
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.2);
   font-style: italic;
-  margin-top: 0.3rem;
-  letter-spacing: 0.05em;
-  animation: hint-pulse 2.5s ease-in-out infinite;
 }
 
-@keyframes hint-pulse {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 0.9; }
+.contact__field input:focus,
+.contact__field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--bioluminescent);
 }
 
-/* Bubbles */
-.chest__bubbles {
+.contact__turnstile {
+  margin-bottom: 1.5rem;
+}
+
+.contact__error {
+  color: #ff8a8a;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Honeypot */
+.contact__hp {
   position: absolute;
-  bottom: 55px;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 3;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
-.chest__bubble {
-  position: absolute;
-  bottom: 0;
-  left: calc(var(--i, 0) * 8px - 28px);
-  width: calc(4px + var(--i, 0) * 1.5px);
-  height: calc(4px + var(--i, 0) * 1.5px);
+/* Success state */
+.contact__success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 0;
+}
+
+.contact__success-icon {
+  position: relative;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 255, 204, 0.7);
-  background: rgba(0, 200, 255, 0.12);
-  animation: bubble-rise calc(1.8s + var(--i, 0) * 0.2s) ease-out calc(var(--i, 0) * 0.15s) both infinite;
+  background: rgba(0, 255, 204, 0.12);
+  border: 1px solid rgba(0, 255, 204, 0.3);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: var(--bioluminescent);
+  margin-bottom: 0.5rem;
+}
+
+.contact__success-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.contact__success-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: calc(20% + var(--i, 0) * 12%);
+  width: calc(4px + var(--i, 0) * 1px);
+  height: calc(4px + var(--i, 0) * 1px);
+  border-radius: 50%;
+  border: 1px solid rgba(0, 255, 204, 0.6);
+  background: rgba(0, 200, 255, 0.1);
+  animation: bubble-rise 1.8s ease-out calc(var(--i, 0) * 0.12s) both;
 }
 
 @keyframes bubble-rise {
   0%   { transform: translateY(0) scale(1);   opacity: 0; }
   10%  { opacity: 0.9; }
   80%  { opacity: 0.4; }
-  100% { transform: translateY(-120px) scale(1.3); opacity: 0; }
+  100% { transform: translateY(-60px) scale(1.3); opacity: 0; }
 }
 
-/* Squid arm sliding in from the right */
-.chest__squid-arm {
-  position: absolute;
-  right: -130px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 120px;
-  pointer-events: none;
-  z-index: 1;
-  animation: squid-reach 0.6s cubic-bezier(0.25, 0.1, 0.3, 1) forwards;
+.contact__success h4 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--white);
 }
 
-@keyframes squid-reach {
-  from { right: -160px; opacity: 0; }
-  to   { right: -125px; opacity: 1; }
-}
-
-/* Grabbed state — whole wrap slides off right */
-.chest-wrap--grabbed {
-  animation: chest-grabbed 1.6s 0.5s cubic-bezier(0.6, 0, 1, 0.8) forwards;
-}
-
-@keyframes chest-grabbed {
-  0%   { transform: translateX(0) rotate(0deg);   opacity: 1; }
-  100% { transform: translateX(300px) rotate(15deg); opacity: 0; }
+.contact__success p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
 }
 
 @media (max-width: 768px) {
   .contact {
     padding: 4rem 1.5rem;
+  }
+  .contact__fields-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .contact__form-wrap {
+    padding: 1.75rem 1.25rem;
   }
 }

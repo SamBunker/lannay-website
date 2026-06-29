@@ -65,7 +65,7 @@ async function handleContact(request, env) {
 
   if (!res.ok) {
     console.error('Resend error', res.status, JSON.stringify(data));
-    return json({ ok: false, error: 'Could not send right now. Please try again later.' }, 502);
+    return json({ ok: false, error: `Resend ${res.status}: ${JSON.stringify(data)}` }, 502);
   }
 
   return json({ ok: true });

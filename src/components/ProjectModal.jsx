@@ -28,6 +28,8 @@ function ProjectModal({ project, onClose }) {
 
   if (!project) return null;
 
+  const validDocuments = (project.documents || []).filter(doc => doc.url && doc.url !== '#');
+
   return (
     <div className="modal" ref={modalRef} onClick={handleBackdropClick}>
       <div className="modal__content" ref={contentRef}>
@@ -83,11 +85,11 @@ function ProjectModal({ project, onClose }) {
         </div>
 
         {/* Documents / Links */}
-        {project.documents && project.documents.length > 0 && (
+        {validDocuments.length > 0 && (
           <div className="modal__documents">
             <h3 className="modal__section-title">Documents &amp; Links</h3>
             <div className="modal__doc-list">
-              {project.documents.map((doc, i) => (
+              {validDocuments.map((doc, i) => (
                 <div key={i} className="modal__doc-card">
                   <div className="modal__doc-card-body">
                     <span className={`modal__doc-badge modal__doc-badge--${doc.type || 'file'}`}>
